@@ -5,27 +5,26 @@
     <div class="blog">
         <div class="container">
             <div class="col-md-7 blog-left">
-                <h3 class="page-header">Muestranos tus arreglos</h3>
-                <br/>
-                @include('partials.errors')
-                {!! Form::open(array('url' => 'posts','files' => 'true')) !!}
-                <div class="form-group">
-                    {!! Form::label('img_url','Ruta de la imagen:')!!}
-                    {!! Form::file('img_url') !!}
+                <div class="blog-left-grid">
+                    <h4><div >Fue creado el: {!! $post->created_at->format('d/m/Y') !!}</div></h4>
+                    <br/>
+                    <a href="#"><img src="{{ asset('/images/'.$post->img_url) }}" style="height: 600px; width: auto" alt=" " class="img-responsive" /></a>
+                    <p class="dolore">{!! $post->description !!}</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {!! HTML::decode(link_to('posts/'.$post->id.'/edit', '<i class="glyphicon glyphicon-edit"></i> Editar',['class' => 'btn btn-primary btn-block'],null )) !!}
+                        </div>
+                        <div class="col-md-6">
+                            {!! Form::open(['method' => 'DELETE', 'action' => ['PostController@destroy',$post->id]]) !!}
+                            {!! Form::button('<i class="glyphicon glyphicon-remove-sign"></i> Eliminar', array('type' => 'submit','class' => 'btn btn-danger btn-block'))!!}
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
+
                 </div>
-                <div class="form-group">
-                    {!! Form::textarea('description',null,['class' => 'form-control', 'placeholder' => 'Comenta']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::input('hidden','enabled','false',['class' => 'form-control']) !!}
-                    {!! Form::input('hidden','vippost','false',['class' => 'form-control']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::submit('Crear',['class' => 'btn btn-success form-control']) !!}
-                </div>
-                {!! Form::close() !!}
             </div>
             <div class="col-md-5 blog-right">
+                @if(Auth::guest())<h3>Login</h3>@endif
                 <div class="in-form">
                         <div>
                             <h3>Bienvenido: {!! Auth::user()->name !!}</h3>

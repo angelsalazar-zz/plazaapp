@@ -11,9 +11,11 @@ class Post extends Model
     protected $fillable = ['img_url','description','publish'];
     public function setImgUrlAttribute($img_url)
     {
-        $name = Carbon::now()->second.$img_url->getClientOriginalName();
-        $this->attributes['img_url'] = $name;
-        \Storage::disk('local')->put($name,\File::get($img_url));
+        if(!empty($img_url)) {
+            $name = Carbon::now()->second . $img_url->getClientOriginalName();
+            $this->attributes['img_url'] = $name;
+            \Storage::disk('local')->put($name, \File::get($img_url));
+        }
     }
 
 

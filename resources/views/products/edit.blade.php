@@ -16,10 +16,14 @@
                 {!! Form::input('text','product_name',null,['class' => 'form-control']) !!}
             </div>
             <div class="form-group">
+                {!! Form::label('category','Seleccione una categoría:')!!}
+                {!! Form::select('category', [''=>'- Selecciona una categoría -','Artificiales' => 'Artificiales','Espectaculares' =>'Espectaculares','Fruteros' => 'Fruteros' ],null,['class' => 'form-control input-sm']) !!}
+            </div>
+            <div class="form-group">
                 {!! Form::label('description','Descripción del producto:')!!}
                 {!! Form::textarea('description',null,['class' => 'form-control']) !!}
             </div>
-            {!! Form::submit('Editar',['class' => 'btn btn-success form-control']) !!}
+            {!! Form::submit('Actualizar',['class' => 'btn btn-success form-control']) !!}
 
             {!! Form::close() !!}
 

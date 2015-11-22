@@ -31,8 +31,8 @@ class AdminMessageController extends Controller
      */
     public function index()
     {
-        /* Selecciona los mensajes que no han sido vistos */
-        $messages = Message::where('seen','=','false')->get();
+        /* Selecciona los mensajes que no han sido vistos del mas reciente al mas antiguo*/
+        $messages = Message::where('seen','=','false')->latest()->get();
         /* retorna vista con los mensajes que no han sido vistos */
         return view('adminmessages.index')->with('messages',$messages);
     }

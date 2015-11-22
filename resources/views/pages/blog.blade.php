@@ -67,10 +67,16 @@
                                         <div class="check">
                                             {!! link_to('posts','Mis posts',['class' => 'btn btn-success btn-lg btn-block']) !!}
                                         </div>
+
                                     </div>
 
                                     <div class="check-right">
                                         <a href="{{ url('/auth/logout') }}" class="btn btn-default btn-lg btn-block"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
+                                        @if(Auth::user()->email == 'admin@plazaapp.com')
+                                            <div class="check">
+                                                {!! link_to('dashboard','Ir a dashboard',['class' => 'btn btn-success btn-lg btn-block']) !!}
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="clearfix"> </div>
                                 </div>

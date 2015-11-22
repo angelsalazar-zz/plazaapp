@@ -10,12 +10,13 @@
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
-                        <tr class="active"><th>Nombre del producto</th><th>Status</th><th>fecha</th><th></th></tr>
+                        <tr class="active"><th>Nombre del producto</th><th>Categoría</th><th>Status</th><th>fecha</th><th></th></tr>
                         </thead>
                         <tbody>
                         @foreach($products as $product)
                             <tr>
                                 <td>{!! $product->product_name !!}</td>
+                                <td>{!! $product->category !!}</td>
                                 @if($product->enabled == 'false')
                                     <td><span class="badge">Deshabilitado</span></td>
                                 @else

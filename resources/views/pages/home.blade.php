@@ -48,24 +48,33 @@
     <!-- services -->
     <div class="service">
         <div class="container">
+            <div class="grid_3 grid_5">
+                <h3 >Categorias</h3>
+                <ol class="breadcrumb">
+                    <li>{!! link_to('home','Todos',null) !!}</li>
+                    <li>{!! link_to_route('categories_path', 'Artificiales', [ 'category' => 'Artificiales'], null) !!}</li>
+                    <li>{!! link_to_route('categories_path', 'Espectaculares', [ 'category' => 'Espectaculares'], null) !!}</li>
+                    <li>{!! link_to_route('categories_path', 'Fruteros', [ 'category' => 'Fruteros'], null) !!}</li>
+                </ol>
+            </div>
             <h3>Productos disponibles</h3>
             @foreach($availableProducts->chunk(3) as $arrayOfThree)
-                <br/>
                 <div class="service-grids">
                     @foreach($arrayOfThree as $product)
                         <div class="col-md-4 service-grid">
                             <img src="images/{{ $product->img_url }}" style="width: auto;height: 300px;" alt=" " class="img-responsive" />
                             <h4> {!! $product->product_name !!}</h4>
                             <br/>
-                            {!! link_to('#','Ver producto',null) !!}
+                            {!! link_to('show/'.$product->id,'Ver producto',null) !!}
                         </div>
                     @endforeach
                 </div>
+                <div class="clearfix"></div>
             @endforeach
-            <div class="center-block">
-                {!! $availableProducts->render() !!}
-            </div>
         </div>
+    </div>
+    <div class="center-block">
+        {!! $availableProducts->render() !!}
     </div>
 
     <!-- //services -->

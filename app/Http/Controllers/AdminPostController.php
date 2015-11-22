@@ -32,7 +32,7 @@ class AdminPostController extends Controller
     {
         /* Obtiene todos los records de nuestra tabla testposts */
         /* paginate($ int) permite desplegar cierta cantidad de cantidad de publicaciones, en este caso 10 */
-        $posts = TestPost::paginate(10);
+        $posts = TestPost::latest()->paginate(10);
         /* Indiciamos que el URL a usar para la paginación es pts (se espera: plazaapp/pts/?page=1) */
         $posts->setPath('pts');
         /* retorna una vista con todos las publicaciones */

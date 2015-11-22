@@ -30,6 +30,10 @@ Route::get('categories',[
     'as' => 'categories_path',
     'uses' => 'PagesController@categories'
 ]);
+Route::get('show/{id}',[
+    'as' => 'show',
+    'uses' => 'PagesController@show'
+]);
 Route::get('blog',[
     'as' => 'blog_path',
     'uses' => 'PagesController@blog'
@@ -37,6 +41,10 @@ Route::get('blog',[
 Route::get('contact',[
     'as' => 'contact_path',
     'uses' => 'PagesController@contact'
+]);
+Route::get('about',[
+    'as' => 'about_path',
+    'uses' => 'PagesController@about'
 ]);
 /** FIN RUTAS PÁGINAS ESTÁTICAS **/
 
@@ -55,16 +63,14 @@ Route::get('contact',[
 /** FIN RUTAS ADMINSIDE **/
 
 
-
-Route::get('about',[
-    'as' => 'about_path',
-    'uses' => 'PagesController@about'
-]);
-
+/** RUTAS CLIENTSIDE **/
 Route::resource('posts', 'PostController');
 Route::resource('messages', 'MessageController',
     ['only' => ['store']
     ]);
-/*Route::resource('posts', 'PostController',
-    ['only' => ['create', 'store']
-    ]);*/
+Route::resource('requestinfo', 'RequestInfoController',
+    ['only' => ['store']
+    ]);
+
+/** FIN RUTAS CLIENTSIDE **/
+

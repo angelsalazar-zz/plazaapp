@@ -28,6 +28,7 @@ class ProductRequest extends Request
             'product_name' => 'required|string',
             'enabled' => 'required|string',
             'img_url' => 'required',
+            'category' => 'required|string',
             'description' => 'required'
         ];
     }

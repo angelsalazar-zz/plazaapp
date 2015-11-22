@@ -87,7 +87,7 @@ class AdminAdvertisementController extends Controller
         /* equivale a select * from advertisemets where id = $id */
         $advertisement = Advertisement::find($id);
         /* retorna la forma para editar con los datos del banner */
-        return view('products.edit')->with('product',$advertisement);
+        return view('advertisements.edit')->with('advertisement',$advertisement);
     }
 
     /**
@@ -120,6 +120,8 @@ class AdminAdvertisementController extends Controller
     {
         /* equivale a select * from advertisemets where id = $id */
         $advertisement = Advertisement::find($id);
+        /* elimina la imagen asociada a dicho advertisement */
+        \Storage::delete($advertisement->img_url);
         /* elimina la información del banner */
         $advertisement->delete();
         /* redirige al listado de banners */

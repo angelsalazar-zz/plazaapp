@@ -122,6 +122,8 @@ class AdminProductsController extends Controller
     {
         /* encuentra el producto a eliminar */
         $product = Product::find($id);
+        /* elimina la imagen asociada a dicho producto */
+        \Storage::delete($product->img_url);
         /* elimina el producto la tabla products */
         $product->delete();
         /* redirige al listado de productos */

@@ -28,13 +28,37 @@ class PagesController extends Controller
         /* retorna la vista de home con los banner y productos que previamiente fueron habilitados */
         return view('pages.home')->with(['currentAds'=> $currentAds,'availableProducts' => $availableProducts]);
     }
+
+    /**
+     * falta por implementar, no se usa por el momento
+     *
+     * @param Request $request
+     * @return $this
+     */
+    public function categories(Request $request)
+    {
+        //dd($request->category);
+        /* obtiene de la tabla advertisements, los banner que han sido habilitados */
+        $currentAds = Advertisement::where('enabled','=','true')->get();
+        /* obtiene de la tabla products, los productos que han sido habilitados */
+        /* paginate(), indica que vamos a mostrar los productos de 6 en 6 */
+        $availableProducts = Product::where('enabled','=','true')->where('category','=',$request->category)->paginate(6);
+        /* Indiciamos que el URL a usar para la paginación es home (se espera plazaapp/home/?page=1) */
+        $availableProducts->setPath('category');
+        /* retorna la vista de home con los banner y productos que previamiente fueron habilitados */
+        return view('pages.home')->with(['currentAds'=> $currentAds,'availableProducts' => $availableProducts]);
+    }
+
     /**
      * falta por implementar, no se usa por el momento
      *
      **/
-    public function categories()
+    public function show($id)
     {
-        return view('arrangements.index');
+        $product = Product::find($id);
+        $relatedProducts = Product::where('category','=',$product->category)->where('id','!=',$product->id)->take(4)->get();
+        //dd($relatedProducts);
+        return view('pages.show')->with(['product'=>$product,'relatedProducts' => $relatedProducts]);
     }
 
     /**
@@ -44,7 +68,7 @@ class PagesController extends Controller
     public function blog(){
         /* selecciona records de la tabla testposts que están habilitados */
         /* paginate() especifica que los posts se mostraran de 5 en 5 */
-        $recentsPosts = TestPost::where('enabled','=','true')->paginate(5);
+        $recentsPosts = TestPost::where('enabled','=','true')->latest()->paginate(5);
         /* Indiciamos que el URL a usar para la paginación es blog (se espera plazaapp/blog/?page=1) */
         $recentsPosts->setPath('blog');
         /* selecciona los records de la tabla testpost que VIP (publicaciones del mesa) */

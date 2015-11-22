@@ -98,11 +98,11 @@
         </div>
 
         <div class="col-md-3 col-md-push-2 get_in_touch ftr">
-            <h3>Get In Touch</h3>
-            <p>Ola-ola street jump,</p>
-            <p>260-14 City, Country</p>
-            <p>+62 000-0000-00</p>
-            <a href="mailto:mail@mlampah.com">www.example.com</a>
+            <h3>Encuentranos en:</h3>
+            <p>20 de Noviembre 224 Norte</p>
+            <p>Tampico, Tamps.</p>
+            <p>+52 (833) 212-3184 y 214-5801</p>
+            <a href="#">www.plazaapp.com</a>
         </div>
         <div class="col-md-4 col-md-push-3 ftr-logo">
             <a href="index.html"><h3>Floreria<span> Plaza</span></h3></a>

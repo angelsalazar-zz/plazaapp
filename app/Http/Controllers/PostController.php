@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
@@ -32,13 +33,14 @@ class PostController extends Controller
         /* Selecciona las publicaciones que el usuario loggueado hizo */
         /* equivale a select * from testposts where user_id = authenticate_user.id */
         /* latest() ordena las publicaciones desde la mas reciente hasta la mas antigua */
-        $posts = Auth::user()->posts()->latest()->get();
+        $posts = Auth::user()->posts()->latest()->paginate(3);
+        $posts->setPath('posts');
         /* retornamos la vista con todos los posts que le pertenecen al usario logueado */
         return view('posts.all')->with('posts',$posts);
     }
 
     /**
-     * Muestra la forma crear una publicación
+     * Muestra la forma para crear una publicación
      *
      * @return \Illuminate\Http\Response
      */
@@ -61,6 +63,8 @@ class PostController extends Controller
         $newPost = new TestPost($request->all());
         /* especifica a que usuario le pertenece el nuevo posts  y lo guarda en  la tabla testposts */
         Auth::user()->posts()->save($newPost);
+        /* Feedback para el usuario, que su publicación será procesada para ver si el contenido es apropiado */
+        Session::flash('flash_message','Tu publicación está siendo procesada, para ver si el contenido es apropiado');
         /* redirige al listado de publicaciones realizados por el usuario loggueado */
         return redirect('posts');
     }
@@ -73,7 +77,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = TestPost::find($id);
+        //dd($post);
+        return view('posts.show')->with('post',$post);
     }
 
     /**
@@ -85,7 +91,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = TestPost::find($id);
+        //dd($post);
+        return view('posts.edit')->with('post',$post);
     }
 
     /**
@@ -97,7 +105,15 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        /* equivale a select * from products where id = $id */
+        $post = TestPost::find($id);
+        /* $request->all() trae todos los datos que fueron ingresados en la forma */
+        /* $product->fill() Actualiza sólo los campos que se encuentran en $request->all() */
+        $post->fill($request->all());
+        /* guarda los cambios */
+        $post->save();
+        /* redirige al listado de productos */
+        return redirect('posts');
     }
 
     /**
@@ -108,6 +124,13 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        /* encuentra el producto a eliminar */
+        $post = TestPost::find($id);
+        /* elimina la imagen asociada a dicho producto */
+        \Storage::delete($post->img_url);
+        /* elimina el producto la tabla products */
+        $post->delete();
+        /* redirige al listado de productos */
+        return redirect('posts');
     }
 }

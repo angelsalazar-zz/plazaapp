@@ -11,7 +11,7 @@ class Product extends Model
     /* Especifica que tabla se usará para este objeto */
     protected $table = 'products';
     /* Especifica los atributos que se pueden llenar y mostrar */
-    protected $fillable = ['product_name','img_url','description','enabled'];
+    protected $fillable = ['product_name','img_url','category','description','enabled'];
 
     /* mutador para el campo img_url */
     /**
